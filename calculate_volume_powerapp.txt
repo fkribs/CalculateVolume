@@ -1,0 +1,129 @@
+UpdateContext({fb_b: v1 / v2});
+UpdateContext({B: 530 / (v2^0.5)});
+UpdateContext({E: v1 * (830 - 5000*fb_b + 9000 * (fb_b ^ 2) - 4200*(fb_b ^ 3) + B)});
+UpdateContext({temp_6: (0.07 + 0.5 / v2) - fb_b});
+UpdateContext(
+    {
+        temp_5: If(
+            temp_6 < 0,
+            0,
+            temp_6 ^ 2.5
+        )
+    }
+);
+UpdateContext({ko_5: 0.5993 + (0.007 / v2) + ((0.364 + (0.076 / (v2^0.5))) * fb_b ^ 4)});
+UpdateContext({ko_4: ko_5 + 0.4 * ((1.6 - 1/v2) ^ 5) * temp_5});
+UpdateContext({temp_4: 0.5 - fb_b});
+UpdateContext(
+    {
+        temp_3: If(
+            temp_4 < 0,
+            0,
+            temp_4 ^ 1.5
+        )
+    }
+);
+UpdateContext({ko_3: ko_4 - (0.009 + 0.034 / v2)*temp_3});
+UpdateContext({temp_2: fb_b - 0.7});
+UpdateContext(
+    {
+        temp_1: If(
+            temp_2 < 0,
+            0,
+            temp_2 ^ 2.5
+        )
+    }
+);
+UpdateContext({ko_2: ko_3 + (65 / (v2^2) + 3) * temp_1});
+UpdateContext({ko_1: ko_2 / (1+((15 * E) / (1000000*v1)))});
+UpdateContext({fb: 338.178 * (v1 ^ 2) * ko_1});
+UpdateContext({k: 0.604 / (1 - fb_b^4)^0.5});
+UpdateContext({fr_b: E / (12835 * v1*k)});
+UpdateContext({hw_pf: Sqrt(v3) * Sqrt(v4 + 14.73)});
+UpdateContext({fr: 1 + fr_b / hw_pf});
+UpdateContext({x2: v3 / (27.707*(v4 + 14.73))});
+UpdateContext({Y: ((1 + x2) ^ 0.5) - ((0.41 + 0.35 * (fb_b ^ 4))*(x2 / 1.3 * ((1 + x2) ^ 0.5)))});
+UpdateContext({fpb: 14.73 / 14.65});
+UpdateContext({ftb: (60 + 459.67) / 519.67});
+UpdateContext({ftf: Sqrt(519.67 / (v5+459.67))});
+UpdateContext({fgr: Sqrt(1 / v6)});
+UpdateContext({AC3: v4});
+UpdateContext({AC4: v5});
+UpdateContext({AC5: v6});
+UpdateContext({AC6: v8});
+UpdateContext({AC7: v7});
+UpdateContext({AC8: 156.47 * AC3});
+UpdateContext({AC9: 160.8 - (7.22*AC5) + (AC7 - 0.392*AC6)});
+UpdateContext(
+    {
+        AC10: Round(
+            AC8 / AC9,
+            1
+        )
+    }
+);
+UpdateContext({AC11: 226.29 * (AC4 + 460)});
+UpdateContext({AC12: 99.15 + (211.9 * AC5) - (AC7+1.681 * AC6)});
+UpdateContext(
+    {
+        AC13: Round(
+            (AC11 / AC12) - 460,
+            1
+        )
+    }
+);
+UpdateContext({AC14: (AC10 + 14.7) / 1000});
+UpdateContext({AC15: (AC13 + 460) / 500});
+UpdateContext({AC16: (0.0330378 / (AC15^2)) - (0.0221323/(AC15^3)) + (0.0161353 / (AC15^5))});
+UpdateContext(
+    {
+        AC17: Round(
+            ((0.265827 / (AC15^2)) + (0.0457697 / (AC15^4)) - (0.133185/AC15)) / AC16,
+            9
+        )
+    }
+);
+UpdateContext(
+    {
+        AC18: Round(
+            (3 - (AC16*(AC17 ^ 2))) / (9 * AC16*(AC14 ^ 2)),
+            7
+        )
+    }
+);
+UpdateContext(
+    {
+        AC19: Round(
+            1 - (0.00075 * (AC14 ^ 2.3))*(2 - (2.718281828^(-20 * (1.09 - AC15)))) - (1.317 * ((1.09 - AC15) ^ 4)*(AC14 * (1.69 - (AC14^2)))),
+            4
+        )
+    }
+);
+UpdateContext(
+    {
+        AC20: Round(
+            ((9 * AC17 - (2 * AC16*(AC17 ^ 3))) / (54 * AC16*(AC14 ^ 3))) - (AC19/(2 * AC16*(AC14 ^ 2))),
+            7
+        )
+    }
+);
+UpdateContext(
+    {
+        AC21: Round(
+            (AC20 + ((AC20 ^ 2) + (AC18 ^ 3)) ^ (1 / 2)) ^ (1 / 3),
+            8
+        )
+    }
+);
+UpdateContext({AC22: ((AC18 / AC21) - AC21 + (AC17 / (3*AC14))) ^ (1 / 2)});
+UpdateContext({AC23: 1 + (0.00132 / (AC15^3.25))});
+UpdateContext(
+    {
+        fpv: Round(
+            AC22 / AC23,
+            4
+        )
+    }
+);
+UpdateContext({c: fb * fr * Y * fpb * ftb * ftf * fgr * fpv});
+UpdateContext({output: Text(c * hw_pf * 24 / 1000)});
